@@ -1,0 +1,11 @@
+[project]
+name = "flet-easy-manage-digital-ingest"
+version = "0.1.0"
+license = "Creative Commons Zero (CC0)"
+dependencies = [
+    "flet>=0.21.0",
+    "flet-easy>=0.2.0"
+    ]
+
+[[project.authors]]
+name = "Mark McFate"
