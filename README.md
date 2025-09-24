@@ -30,8 +30,11 @@ The process started at https://github.com/Digital-Grinnell where a new empty rep
 ```zsh
 cd ~/GitHub/flet_easy_manage_digital_ingest
 git init
-
-
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Digital-Grinnell/flet_easy_manage_digital_ingest.git
+git push -u origin main
 ```
 
 
