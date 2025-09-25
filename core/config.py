@@ -24,6 +24,11 @@ class ConfigApp:
                             text="Counter",
                             on_click=data.go("/counter/test/0"),
                         ),
+                        ft.VerticalDivider(opacity=0),
+                        ft.FilledButton(
+                            text="Picker",
+                            on_click=data.go("/picker"),
+                        ),
                     ],
                     bgcolor="#121113",
                 )

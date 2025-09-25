@@ -2,13 +2,13 @@ import flet as ft
 import flet_easy as fs
 
 picker = fs.AddPagesy(
-    route_prefix="/picker",
+    route_prefix="/",
 )
 
 
 # We add a third page
-@picker.page(route="/test/{id}", title="Picker")
-def picker_page(data: fs.Datasy, id: str):
+@picker.page(route="/picker", title="Picker")
+def picker_page(data: fs.Datasy):
     page = data.page
     view = data.view
 

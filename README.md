@@ -3,16 +3,20 @@ A Flet-Easy Python app to manage Grinnell College ingest of digital objects to A
 
 ## Setup Command Sequence
 
-The command sequence used to produce this repo is documented below.  Because `flet-easy` still has references to `colors`, not `Colors`, I had to fork that repo, fix it, and then install it in a new VENV in this repo's parent directory using that corrected version.  Like so...  
+The command sequence used to produce this repo is documented below.  Because `flet-easy` still has references to `colors`, not `Colors`, I had to fork that repo, fix it, and then install it in a new VENV in this repo's parent directory using that corrected version.  
+
+Also, note that `flet` and `flet-easy` are both installed in a VENV within the parent director, not in the repo itself.  This seems to be a necessary so that `fs init` and other `fs` commands work properly.  
+
+Like so...  
 
 ```zsh
 cd GitHub
 python3.12 -m venv .venv
 source .venv/bin/activate
-pip3 install git+https://github.com/SummittDweller/flet-easy.git
 pip install --upgrade pip
+pip3 install git+https://github.com/SummittDweller/flet-easy.git
 pip3 install 'flet[all]'
-pip install 'flet-easy[all]' --upgrade
+pip3 install 'flet-easy[all]' --upgrade <--no longer necessary
 fs init
 cd flet_easy_manage_digital_ingest
 code .
