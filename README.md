@@ -5,7 +5,7 @@ A Flet-Easy Python app to manage Grinnell College ingest of digital objects to A
 
 The command sequence used to produce this repo is documented below.  Because `flet-easy` still has references to `colors`, not `Colors`, I had to fork that repo, fix it, and then install it in a new VENV in this repo's parent directory using that corrected version.  
 
-Also, note that `flet` and `flet-easy` are both installed in a VENV within the parent director, not in the repo itself.  This seems to be a necessary so that `fs init` and other `fs` commands work properly.  
+Also, note that `flet` and `flet-easy` are both installed in a VENV within the parent directory, not in the repo itself.  This seems to be a necessary so that `fs init` and other `fs` commands work properly.  
 
 Like so...  
 
@@ -39,6 +39,16 @@ git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/Digital-Grinnell/flet_easy_manage_digital_ingest.git
 git push -u origin main
+```
+
+# File-Picker Considerations
+
+The Flet FilePicker will NOT work in Flet v0.28.3 due to missing "entitlements" settings.  I could not find guidance for providing these app settings, so my choices are to run the app in a web browser using `flet run --web`, or do downgrade Flet to version 0.28.2, and that's the direction I took using...  
+
+
+```zsh
+pip3 uninstall flet
+pip3 install 'flet[all]'==0.28.2
 ```
 
 

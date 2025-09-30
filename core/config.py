@@ -29,6 +29,8 @@ class ConfigApp:
                             text="Picker",
                             on_click=data.go("/picker"),
                         ),
+                        # One more divider for better button spacing
+                        ft.VerticalDivider(opacity=0),
                     ],
                     bgcolor="#121113",
                 )
