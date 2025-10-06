@@ -1,5 +1,8 @@
 # FilePicker does NOT work in macOS w/ Flet version 0.28.3 due to permissions/security, so we need to run 
 # it as a browser app, OR degrade to Flet 0.28.2 which does work in macOS.  See https://github.com/flet-dev/flet/issues/5334#issuecomment-3065024264
+#
+# Unfortunately, Flet-Easy does not work properly in Flet 0.28.2 as navigation is broken,
+# so we need to run this as a browser app for now in macOS using Flet 0.28.3 or later.
 
 import flet as ft
 import flet_easy as fs
