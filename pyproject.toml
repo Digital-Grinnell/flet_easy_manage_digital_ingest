@@ -9,3 +9,7 @@ dependencies = [
 
 [[project.authors]]
 name = "Mark McFate"
+
+[tool.flet.macos]
+entitlement."com.apple.security.files.user-selected.read-write"=true
+
