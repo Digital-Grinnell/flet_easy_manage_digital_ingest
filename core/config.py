@@ -29,6 +29,16 @@ class ConfigApp:
                             text="Picker",
                             on_click=data.go("/picker"),
                         ),
+                        ft.VerticalDivider(opacity=0),
+                        ft.FilledButton(
+                            text="Mode",
+                            on_click=data.go("/mode"),
+                        ),
+                        ft.VerticalDivider(opacity=0),
+                        ft.FilledButton(
+                            text="Show Data",
+                            on_click=data.go("/show_data"),
+                        ),
                         # One more divider for better button spacing
                         ft.VerticalDivider(opacity=0),
                     ],

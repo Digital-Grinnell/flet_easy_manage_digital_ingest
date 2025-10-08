@@ -18,4 +18,4 @@ app = fs.FletEasy(
 ConfigApp(app)
 
 # We run the application
-app.run()
+app.run( )

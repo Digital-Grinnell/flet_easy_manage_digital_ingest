@@ -7,19 +7,20 @@ index = fs.AddPagesy()
 @index.page(route="/home", title="Home")
 def index_page(data: fs.Datasy):
     view = data.view
+    page = data.page
 
     # Read markdown content from a file
     with open("_data/home.md", "r", encoding="utf-8") as file:
-        markdown_text = file.read()
+        markdown_text = file.read( )
     
     # Create a Markdown widget with the content
     md_widget = ft.Markdown(markdown_text, 
-                    code_style_sheet=ft.MarkdownStyleSheet(
-                        code_text_style=ft.TextStyle(color=ft.Colors.GREEN_400)
+        md_style_sheet=ft.MarkdownStyleSheet(blockquote_text_style=ft.TextStyle(bgcolor=ft.Colors.PURPLE_50, color=ft.Colors.BLACK, size=16, weight=ft.FontWeight.BOLD),
+                                             p_text_style=ft.TextStyle(color=ft.Colors.BLACK, size=16, weight=ft.FontWeight.NORMAL),
+                                             code_text_style=ft.TextStyle(color=ft.Colors.ORANGE_400, size=16, weight=ft.FontWeight.BOLD),
         )
     )
 
-    
     return ft.View(
         controls=[
             ft.Text("Flet-Easy: Manage Digital Ingest", size=35),
