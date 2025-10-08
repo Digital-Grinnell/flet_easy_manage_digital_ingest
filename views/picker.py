@@ -6,19 +6,34 @@
 
 import flet as ft
 import flet_easy as fs
+import os
+from enhanced_logger import EnhancedLogger
+import logging
 
 picker = fs.AddPagesy(
     route_prefix="/",
 )
 
 
-# We add a third page
+# We add a new 'picker' page
 @picker.page(route="/picker", title="Picker")
 def picker_page(data: fs.Datasy):
 
     # Standard Flet-Easy page stuff
     page = data.page
     view = data.view
+
+
+    def find_file(filename, search_path='.'):
+        """
+        Search for a file by name starting from the specified directory.
+        Returns absolute path if found, otherwise None.
+        """
+        for root, dirs, files in os.walk(search_path):
+            if filename in files:
+                return root 
+        return None
+
 
     # Function to open the file picker dialog
     # This is called when a valid directory option is selected in the file selection RadioGroup
@@ -47,35 +62,50 @@ def picker_page(data: fs.Datasy):
         It updates the UI and passes the selected file/paths to ft.page.session ...the processing function.
         """
         page = e.page
-        # logger = page.session.get("logger")
-        # status_container = page.session.get("status_container")
-        # result_text = status_container.result_text
+        logger = page.session.get("logger")
+        logger.info(f"File picker result event: {e}")
+        logger.info(f"Number of files selected: {len(e.files)}")
+        logger.info(f"Selected files: {[file.name for file in e.files]}")
+        
+        num_files = len(e.files)
 
-        # if e.files:
-        #     num_files = len(e.files)
-        #     directory = os.path.dirname(e.files[0].path)
-        #     result_text.value = f"{num_files} files selected from {directory}."
+        if num_files > 0:
+            dir1 = False
+
+            directory = find_file(e.files[0].name, search_path='/Users')
+            if directory:
+                logger.info(f"First file directory found: {directory}")
+            else:
+                logger.warning(f"Directory for the first file not found!")
+
+            if num_files > 1:
+                dir1 = find_file(e.files[num_files-1].name, search_path='/Users')
+                if dir1:
+                    logger.info(f"Last file directory found: {dir1}")
+                else:
+                    logger.warning(f"Directory for the last file not found!")
             
-        #     # Clear the previous selection
-        #     page.session.set("selected_object_paths", [ ])
-        #     objects = page.session.get("selected_object_paths")
-            
-        #     # Loop through the selected files and log their paths. Append each path to page.session[selected_object_paths]
-        #     for file in e.files:
-        #         logger.info(f"Selected file: {file.name} (Path: {file.path})")  
-        #         status_container.result_text.value += f"\n- {file.name}"  
-        #         objects.append(file.path)
-        #         page.update( )
+            if directory != dir1:
+                logger.warning(f"Warning: Selected files are from different directories: {directory} and {dir1}")   
+                directory = False
+            else:
+                logger.info(f"All selected files are from the same directory: {directory}")
+                logger.info(f"{num_files} files selected from {directory}.")
+                directory = directory  # Use this directory for processing
 
-        #     utils.show_message(page, f"{num_files} files selected from {directory}.")
-        #     page.session.set("selected_object_paths", objects)
-        #     page.update( )
-        #     # process_files(page, directory, e.files)  # Pass the list of files to the processing function
+            # Clear the previous selection
+            page.session.set("selected_object_paths", [ ])
+            objects = page.session.get("selected_object_paths")
 
-        # else:
-        #     status_container.result_text.value = "Selection cancelled."
-        #     utils.show_message(page, "File selection was cancelled.", is_error=True)
-        #     page.session.set
+            # Loop through the selected files and log their paths. Append each path to page.session[selected_object_paths]
+            for file in e.files:
+                logger.info(f"Selected file: {file.name} (Path: {directory})")  
+                objects.append(directory + "/" + file.name)
+
+            page.session.set("selected_object_paths", objects)
+            page.update( )
+
+            # process_files(page, directory, e.files)  # Pass the list of files to the processing function
 
         page.update( )
 
@@ -85,13 +115,27 @@ def picker_page(data: fs.Datasy):
     # Add the FilePicker control to the page
     page.overlay.append(file_picker)    
 
+    # Read markdown content from a file
+    with open("_data/picker.md", "r", encoding="utf-8") as file:
+        markdown_text = file.read( )
+    
+    # Create a Markdown widget with the content
+    md_widget = ft.Markdown(markdown_text, 
+        md_style_sheet=ft.MarkdownStyleSheet(blockquote_text_style=ft.TextStyle(bgcolor=ft.Colors.PURPLE_50, color=ft.Colors.BLACK, size=16, weight=ft.FontWeight.BOLD),
+                                             p_text_style=ft.TextStyle(color=ft.Colors.BLACK, size=16, weight=ft.FontWeight.NORMAL),
+                                             code_text_style=ft.TextStyle(color=ft.Colors.ORANGE_400, size=16, weight=ft.FontWeight.BOLD),
+        )
+    )
+
     def plus_click(e):
         open_file_picker(e)
         page.update()
 
     return ft.View(
         controls=[
-            ft.Text("Picker page", size=30),
+            ft.Text("File Picker page", size=30),
+            ft.Divider(height=20, color=ft.Colors.RED_400),
+            md_widget,
             ft.Row(
                 [
                     ft.IconButton(ft.Icons.ADD, on_click=plus_click),

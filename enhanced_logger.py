@@ -36,24 +36,24 @@ class EnhancedLogger:
     def info(self, msg):
         self.logger.info(msg)
         if self.page:   
-            self.page.session.set("last_status = info:", msg)
+            self.page.session.set("last_status", f"info: {msg}")
 
     def warning(self, msg):
         self.logger.warning(msg)
         if self.page:   
-            self.page.session.set("last_status = warning:", msg)
+            self.page.session.set("last_status", f"warning: {msg}")
 
     def error(self, msg):
         self.logger.error(msg)
         if self.page:   
-            self.page.session.set("last_status = error:", msg)  
+            self.page.session.set("last_status", f"error: {msg}")
 
     def debug(self, msg):
         self.logger.debug(msg)
         if self.page:   
-            self.page.session.set("last_status = debug:", msg)
+            self.page.session.set("last_status", f"debug: {msg}")
 
     def set_level(self, level):
         self.logger.setLevel(level)
         if self.page:   
-            self.page.session.set("last_status = set_level:", f"Logging level set to {level}")
+            self.page.session.set("last_status", f"set-level: Logging level set to {level}")
