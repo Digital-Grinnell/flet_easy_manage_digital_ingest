@@ -51,6 +51,8 @@ pip3 uninstall flet
 pip3 install 'flet[all]'==0.28.2
 ```
 
+Unfortunately, version 0.28.2 appears to have some navigation issues in Flet-Easy, so I've returned back to Flet version 0.28.3 (the current version at the time the project was created) and I'll just use `flet run --web` for now since the file picker works there without "entitlements".  
+
 
 > ## ⚠️ **NOTICE** ⚠️
 >
