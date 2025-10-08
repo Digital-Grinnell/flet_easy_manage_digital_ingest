@@ -1,6 +1,7 @@
 from pathlib import Path
 import warnings
-import my_logger
+from enhanced_logger import EnhancedLogger
+import logging
 
 import flet_easy as fs
 from core.config import ConfigApp

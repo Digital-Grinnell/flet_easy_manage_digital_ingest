@@ -14,7 +14,7 @@ def show_data_page(data: fs.Datasy):
     dicts_display = ""
 
     for key in page.session.get_keys( ):
-        print(f"session['{key}']: {page.session.get(key)}")
+        # print(f"session['{key}']: {page.session.get(key)}")
         if key != "last_status":
             dicts_display += f"\nsession['{key}']: {page.session.get(key)}"
     

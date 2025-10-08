@@ -1,6 +1,7 @@
 import flet as ft
 import flet_easy as fs
-import my_logger
+from enhanced_logger import EnhancedLogger
+import logging
 
 index = fs.AddPagesy()
 
@@ -27,8 +28,12 @@ def index_page(data: fs.Datasy):
     # If we don't yet have a logger in the session, we create one and store it there
     if not page.session.get("logger"):
         page.session.set("last_status", "Initialized the logger") 
-        logger = my_logger.init_logger( )
-        logger.info(f"Initialized logging for {__name__}")
+        
+        logger = EnhancedLogger('FEMDI', log_file='flet_easy_manage_digital_ingest.log', level=logging.DEBUG, page=page)
+        logger.info('Application started')
+        # logger.error('An error occurred')
+
+        logger.info(f"Initialized logging for '{__name__}'")
         page.session.set("logger", logger)
 
     return ft.View(
