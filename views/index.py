@@ -1,5 +1,6 @@
 import flet as ft
 import flet_easy as fs
+import my_logger
 
 index = fs.AddPagesy()
 
@@ -20,6 +21,15 @@ def index_page(data: fs.Datasy):
                                              code_text_style=ft.TextStyle(color=ft.Colors.ORANGE_400, size=16, weight=ft.FontWeight.BOLD),
         )
     )
+
+    page.session.set("last_status", "At Home page") 
+
+    # If we don't yet have a logger in the session, we create one and store it there
+    if not page.session.get("logger"):
+        page.session.set("last_status", "Initialized the logger") 
+        logger = my_logger.init_logger( )
+        logger.info(f"Initialized logging for {__name__}")
+        page.session.set("logger", logger)
 
     return ft.View(
         controls=[

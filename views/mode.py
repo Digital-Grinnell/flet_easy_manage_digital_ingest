@@ -8,10 +8,13 @@ mode = fs.AddPagesy(
 # Define the change event handler for the RadioGroup
 def mode_radio_group_changed(e):
     print(e)
+    logger = e.page.session.get("logger")
     mode = e.control.value
     e.page.session.set("mode", mode)
     msg = f"Selected processing mode: '{mode}'"
     print(msg)
+    e.page.session.set("last_status", msg)
+    logger.info(msg)
 
     # utils.show_message(page, msg, False)
         
@@ -27,6 +30,7 @@ def mode_radio_group_changed(e):
 def mode_page(data: fs.Datasy):
     page = data.page
     view = data.view
+    logger = page.session.get("logger")
 
     # Create the RadioGroup with the two radio buttons
     mode_options = ft.RadioGroup(
