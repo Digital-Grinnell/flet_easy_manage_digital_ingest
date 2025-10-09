@@ -39,6 +39,11 @@ class ConfigApp:
                             text="Show Data",
                             on_click=data.go("/show_data"),
                         ),
+                        ft.VerticalDivider(opacity=0),
+                        ft.FilledButton(
+                            text="Exit",
+                            on_click=data.go("/exit"),
+                        ),
                         # One more divider for better button spacing
                         ft.VerticalDivider(opacity=0),
                     ],
